@@ -1,5 +1,8 @@
 #include <pebble.h>
   
+static TextLayer *s_time_layer;
+static TextLayer *s_weather_layer;
+  
 static Window *s_main_window;
 static TextLayer *s_time_layer;
  
@@ -53,6 +56,13 @@ static void main_window_load(Window *window) {
   
   // Make sure the time is displayed from the start
   update_time();
+  
+  // Create temperature layer
+  s_weather_layer = text_layer_create(GRect(0, 130, 144, 25));
+  text_layer_set_background_color(s_weather_layer, GColorClear);
+  text_layer_set_text_color(s_weather_layer, GColorWhite);
+  text_layer_set_text_alignment(s_weather_layer, GTextAlignmentCenter);
+  text_layer_set_text(s_weather_layer, "Loading...");
 }
  
 static void main_window_unload(Window *window) {
